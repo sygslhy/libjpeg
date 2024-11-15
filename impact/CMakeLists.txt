@@ -306,15 +306,3 @@ target_include_directories(
 if(NOT MSVC)
     set_target_properties(jpeg-static PROPERTIES OUTPUT_NAME jpeg)
 endif()
-
-install(
-    TARGETS ${TARGET}
-    LIBRARY DESTINATION lib
-    PUBLIC_HEADER DESTINATION include
-    RUNTIME DESTINATION bin)
-
-install(
-    TARGETS jpeg-static
-    LIBRARY DESTINATION lib
-    PUBLIC_HEADER DESTINATION include
-    RUNTIME DESTINATION bin)
