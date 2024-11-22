@@ -24,4 +24,4 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-std=gnu++17>")
 endif()
 
-add_subdirectory(impact)
+add_subdirectory(my_cmake)
