@@ -298,6 +298,8 @@ add_library(
     $<TARGET_OBJECTS:jpeg12-static>
     $<TARGET_OBJECTS:jpeg16-static>)
 
+target_compile_definitions(jpeg-static PRIVATE JPEG_VERSION=62)
+
 target_include_directories(
     jpeg-static
     PUBLIC $<BUILD_INTERFACE:${HDR_DIR}>
