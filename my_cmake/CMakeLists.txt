@@ -7,6 +7,10 @@ set(TARGET turbojpeg)
 set(SRC_DIR ${OUR_DIR})
 set(HDR_DIR ${OUR_DIR})
 
+option(WITH_JPEG8
+  "Emulate libjpeg v8 API/ABI (this makes ${CMAKE_PROJECT_NAME} backward-incompatible with libjpeg v6b)"
+  TRUE)
+
 include(${CMAKE_CURRENT_LIST_DIR}/ConfigureChecks.cmake)
 
 # headers dependencies
@@ -298,7 +302,6 @@ add_library(
     $<TARGET_OBJECTS:jpeg12-static>
     $<TARGET_OBJECTS:jpeg16-static>)
 
-target_compile_definitions(jpeg-static PRIVATE JPEG_VERSION=62)
 
 target_include_directories(
     jpeg-static
