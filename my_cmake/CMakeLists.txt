@@ -303,6 +303,10 @@ add_library(
     $<TARGET_OBJECTS:jpeg16-static>)
 
 
+if(WITH_JPEG8)
+    target_compile_definitions(jpeg-static PUBLIC JPEG_VERSION=80)
+endif()
+
 target_include_directories(
     jpeg-static
     PUBLIC $<BUILD_INTERFACE:${HDR_DIR}>

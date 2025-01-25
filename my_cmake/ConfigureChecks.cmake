@@ -76,7 +76,13 @@ endif()
 # CONFIGURATION OPTIONS
 # ######################################################################################################################
 
-set(JPEG_LIB_VERSION 62)
+if(WITH_JPEG8)
+  set(JPEG_LIB_VERSION 80)
+elseif(WITH_JPEG7)
+  set(JPEG_LIB_VERSION 70)
+else()
+  set(JPEG_LIB_VERSION 62)
+endif()
 
 set(C_ARITH_CODING_SUPPORTED 1)
 set(D_ARITH_CODING_SUPPORTED 1)
