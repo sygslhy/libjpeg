@@ -302,9 +302,12 @@ add_library(
     $<TARGET_OBJECTS:jpeg12-static>
     $<TARGET_OBJECTS:jpeg16-static>)
 
-
 if(WITH_JPEG8)
-    target_compile_definitions(jpeg-static PUBLIC JPEG_VERSION=80)
+    set_target_properties(
+        jpeg-static
+        PROPERTIES
+        JPEG_LIB_VERSION ${JPEG_LIB_VERSION}
+    )
 endif()
 
 target_include_directories(
