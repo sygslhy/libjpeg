@@ -10,9 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # add flag -fPIC for binding compiling library
 add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-fPIC>" "$<$<COMPILE_LANGUAGE:C>:-fPIC>")
 
-# Build everything as static for MinGW to avoid any DLL dependency
 if(MINGW OR MSYS)
-    link_libraries("-static -static-libgcc -static-libstdc++")
     add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-std=c++17>")
 endif()
 

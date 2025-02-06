@@ -175,8 +175,8 @@ if(CPU_TYPE STREQUAL "arm64" OR CPU_TYPE STREQUAL "arm")
         ${SRC_DIR}/simd/arm/jidctred-neon.c
         ${SRC_DIR}/simd/arm/jidctfst-neon.c
         ${SRC_DIR}/simd/arm/jcphuff-neon.c)
-    
-    set(HDRS 
+
+    set(HDRS
         ${HDRS}
         ${CMAKE_CURRENT_BINARY_DIR}/libjpeg/neon-compat.h
     )
@@ -192,19 +192,19 @@ if(CPU_TYPE STREQUAL "arm64" OR CPU_TYPE STREQUAL "arm")
 endif()
 
 # we're building a static library
-add_library(${TARGET} STATIC ${HDRS} ${SIMD_SOURCES} ${SRCS})
-set_target_properties(${TARGET} PROPERTIES PUBLIC_HEADER "${PUBLIC_HDRS}")
+# add_library(${TARGET} STATIC ${HDRS} ${SIMD_SOURCES} ${SRCS})
+# set_target_properties(${TARGET} PROPERTIES PUBLIC_HEADER "${PUBLIC_HDRS}")
 
-# specify where the public headers of this library are
-target_include_directories(
-    ${TARGET}
-    PUBLIC $<BUILD_INTERFACE:${HDR_DIR}>
-           $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/libjpeg>
-           $<INSTALL_INTERFACE:include>)
+# # specify where the public headers of this library are
+# target_include_directories(
+#     ${TARGET}
+#     PUBLIC $<BUILD_INTERFACE:${HDR_DIR}>
+#            $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/libjpeg>
+#            $<INSTALL_INTERFACE:include>)
 
-target_compile_definitions(${TARGET} PRIVATE BMP_SUPPORTED PPM_SUPPORTED)
+# target_compile_definitions(${TARGET} PRIVATE BMP_SUPPORTED PPM_SUPPORTED)
 
-set_property(TARGET ${TARGET} PROPERTY LIBJPEGT_SOURCE_DIR ${HDR_DIR})
+# set_property(TARGET ${TARGET} PROPERTY LIBJPEGT_SOURCE_DIR ${HDR_DIR})
 
 set(JPEG_HDRS
     ${CMAKE_CURRENT_BINARY_DIR}/libjpeg/jconfigint.h
@@ -317,4 +317,9 @@ target_include_directories(
            $<INSTALL_INTERFACE:include>)
 if(NOT MSVC)
     set_target_properties(jpeg-static PROPERTIES OUTPUT_NAME jpeg)
+endif()
+
+# Build everything as static for MinGW to avoid any DLL dependency
+if(MINGW OR MSYS)
+    target_link_libraries(jpeg-static PRIVATE "-static -static-libgcc -static-libstdc++")
 endif()
